@@ -36,6 +36,10 @@ class DownloadManager private constructor(builder: Builder) : Serializable {
             }
             return instance!!
         }
+
+        internal fun releaseBefore(){
+            instance = null
+        }
     }
 
     private var application: Application = builder.application
@@ -433,6 +437,7 @@ class DownloadManager private constructor(builder: Builder) : Serializable {
         }
 
         fun build(): DownloadManager {
+            releaseBefore();
             return getInstance(this)!!
         }
     }

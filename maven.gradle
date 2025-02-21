@@ -1,5 +1,5 @@
 apply plugin: 'maven-publish'
-apply plugin: 'signing'
+//apply plugin: 'signing'
 
 tasks.register('generateSourcesJar', Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -45,15 +45,16 @@ afterEvaluate {
         }
         repositories {
             maven {
-                url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+                name = "release"
+                url = uri(RELEASE_URL)
                 credentials {
-                    username localProperties.getProperty('sonatype.name')
-                    password localProperties.getProperty('sonatype.password')
+                    username = USER_NAME ?: ""
+                    password = PASSWORD ?: ""
                 }
             }
         }
     }
 }
-signing {
-    sign publishing.publications
-}
+//signing {
+//    sign publishing.publications
+//}
